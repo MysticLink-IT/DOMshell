@@ -27,12 +27,12 @@ Clone/Download the repo and run "domshell-install.sh"
 Coming soon...
 
 <h2>Set Up</h2>
-The script will install the required software
+The script will install the required software<br>
 You will prompted to choose an admin username and password for DB administration and user settings
 
 <h2>Usage</h2>
 1. From the DOMshell folder run:
-python manage.py runserver
+python manage.py runserver<br>
 2. Open a web browser then go to http://localhost:8000/computers
 
 <h2>Connecting to Remote Servers</h2>
