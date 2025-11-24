@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="/static/style.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>{{host}} | EventLog</title>
+<script>
+function filterSearch() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>
+</head>
+<body>
+{% include 'taskbar.html' %}
+<br><br>
+{% include 'windows-navbar.html' %}
+<br><br>
+<div class="taskbar">
+<span class="appbar"> : <b>Event Logs</b> | </span>
+<span id="system"><a class="taskbarlink" href="eventlog?logname=system">System</a></span> |
+<span id="application"><a class="taskbarlink" href="eventlog?logname=application">Application</a></span> |
+<span id="security"><a class="taskbarlink" href="eventlog?logname=security">Security</a></span> |
+<span id="list"><a class="taskbarlink" href="eventlog?logname=list">All Logs</a></span> )
+<script>
+let tab = document.getElementById("{{log}}");
+tab.classList.add("log");
+</script>
+</div>
+<br>
+<form action="eventlog" method="GET">
+<input type="hidden" id="logname" name="logname" value="{{log}}" />
+<table>
+<tr>
+<td><label for="newest">First: </label><input type="number" id="newest" name="newest" value="10"></td>
+<td><label for="lname">Event IDs: </label><input type="text" id="eventids" name="eventids"></td>
+<td><label for="afterdate">Start date:</label><input type="date" id="afterdate" name="afterdate" value="" min="2018-01-01"/><br><label for="aftertime">Start time:</label><input type="time" id="aftertime" name="aftertime" value=""/></td>
+<td><label for="beforedate">End date:</label><input type="date" id="beforedate" name="beforedate" value="" min="2018-01-01"/><br><label for="beforetime">Before time:</label><input type="time" id="beforetime" name="beforetime" value=""/></td>
+<td><input type="submit" value="Filter"></td>
+</tr>
+</table>
+</form>
+{% if eventData %}
+{% for e in eventData %}
+<div>
+    <details>
+      <summary><img src="/static/icons/EventType{{e.EntryType}}.png"> - {{e.DateTime}} - {{e.EventID}} - {{e.Source}}</summary>
+      <table>
+      <tr>
+        <th>Event ID</th>
+        <th>User</th>
+        <th>Source</th>
+        <th>Category</th>
+        <th>InstanceId</th>
+        <th>Message</th>
+      </tr>
+      <tr>
+        <td>{{e.EventID}}</td>
+        <td>{{e.UserName}}</td>
+        <td>{{e.Source}}</td>
+        <td>{{e.CategoryNumber}}</td>
+        <td>{{e.InstanceId}}</td>
+        <td>{{e.Message}}</td>
+      </tr>
+      </table>
+
+    <!--<p>Event ID = {{e.EventID}}</p>
+    <p>User = {{e.UserName}}</p>
+    <p>Source = {{e.Source}}</p>
+    <p>Category = {{e.CategoryNumber}}</p>
+    <p>InstanceId = {{e.InstanceId}}</p>
+    <p>{{e.Message}}</p>-->
+    </details>
+</div>
+{% endfor %}
+{% elif eventlogList %}
+{% for l in eventlogList %}
+<div class="eventlog">
+<a href="eventlog?logname={{l.LogName}}">{{l.LogName}}</a><br>
+{{l.RecordCount}}
+</div>
+{% endfor %}
+{% else %}
+Error {{errorCode}}: {{errorMSG}}
+{% endif %}
+</body>
+</html>

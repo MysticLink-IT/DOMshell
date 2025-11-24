@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="/static/style.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>{{host}} | Services</title>
+<script>
+function openBox(d) {
+    document.getElementById(d).togglePopover();
+}
+/*
+function openStartModeEditBox(popID, element, serviceDisplayName) {
+    let d = document.getElementById(popID);
+    let v = element.innerHTML;
+    let t = document.getElementById("serviceDisplayNameStartModeForm");
+    let s = document.getElementById("serviceNameStartModeForm");
+    let c = document.getElementById("currentStartMode")
+    t.innerHTML = serviceDisplayName;
+    s.value = serviceDisplayName;
+    c.innerHTML = "(current mode is \'" + v + "\')";
+    d.togglePopover();
+}*/
+</script>
+</head>
+<body>
+{% include 'windows-navbar.html' %}
+<br>
+<h3>{{host}} - Services</h3>
+{% if winPSData %}
+
+<div popover id="startModePopoverForm">
+<h3 id="serviceDisplayNameStartModeForm"></h3>
+<p>StartUp Mode:</p>
+<form action='services' method='GET'>{% csrf_token %}
+<input type="hidden" id="serviceNameStartModeForm" name="servicename" value="" />
+<select name="mode" id="mode">
+  <option value="manual">Manual</option>
+  <option value="auto">Automatic</option>
+  <option value="autodelayedstart">Automatic(Delayed Start)</option>
+  <option value="disabled">Disabled</option>
+</select>
+<p id="currentStartMode"></p>
+<br><input type="submit" value="Apply"><br><br>
+</form>
+<button popovertarget="startModePopoverForm">Cancel</button>
+</div>
+
+<table id="services">
+<thead>
+<th>Status</th>
+<th>Display Name</th>
+<th>StartUp Method</th>
+</thead>
+<tbody>
+{% for r in winPSData %}
+<tr class="service">
+    <td class="service" onclick="openBox('{{ r.Name }}statePopoverForm')">{{ r.State }}</td>
+     <div popover id="{{ r.Name }}statePopoverForm">
+      <h3>{{ r.DisplayName }}</h3>
+      <p>(current state is '{{ r.State }}')</p>
+      <span class="button"><a href="/computers/windows/{{host}}/services/{{ r.Name }}/stop">Stop</a></span>
+      <span class="button"><a href="/computers/windows/{{host}}/services/{{ r.Name }}/pause">Pause</a></span>
+      <span class="button"><a href="/computers/windows/{{host}}/services/{{ r.Name }}/start">Start</a></span>
+      <span class="button"><a href="/computers/windows/{{host}}/services/{{ r.Name }}/restart">Restart</a></span>
+      <br><br>
+      <button popovertarget="{{ r.Name }}statePopoverForm">Cancel</button>
+     </div>
+    <td class="service" onclick="stateBox('popover{{ r.Name }}info')">{{ r.DisplayName }}</td>
+    <div popover id="popover{{ r.Name }}info">{{ r.Description }}</div>
+    <td class="service" onclick="openBox('{{ r.DisplayName }}startModePopoverForm')">{{ r.StartMode }}</td>
+    <div popover id="{{ r.DisplayName }}startModePopoverForm">
+      <h3 id="serviceDisplayNameStartModeForm"></h3>
+      <p>StartUp Mode:</p>
+      <form action='/computers/windows/{{host}}/services/{{ r.Name }}' method='GET'>{% csrf_token %}
+        <input type="hidden" id="serviceNameStartModeForm" name="servicename" value="{{ r.Name }}" />
+        <select name="mode" id="mode">
+          <option value="manual">Manual</option>
+          <option value="automatic">Automatic</option>
+          <option value="automaticdelayedstart">Automatic(Delayed Start)</option>
+          <option value="disabled">Disabled</option>
+        </select>
+        <p>(Current mode = {{ r.StartMode }})</p>
+        <br><input type="submit" value="Apply"><br><br>
+      </form>
+      <button popovertarget="{{ r.DisplayName }}startModePopoverForm">Cancel</button>
+    </div>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+{{errorCode}}
+<br><br>
+<a href="/computers/windows/{{host}}/services">Return to Services</a>
+{% endif %}
+</body>
+</html>

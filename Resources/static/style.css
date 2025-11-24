@@ -1,0 +1,135 @@
+[popover] {
+  max-width: 80%
+  padding: 10%;
+}
+.center {
+    text-align: center;
+}
+.hidden {
+    display: none;
+}
+.hidden:hover {
+    display: block;
+}
+.mysticlogo {
+    color: #F22;
+    font-style: italic;
+    font-family: Times;
+}
+.linklogo {
+    color: #D2F;
+    font-style: bold;
+}
+.small {
+    font-size: 8px;
+}
+html {scroll-behavior: smooth;}
+body {
+    background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+    font-family: monospace;
+    scroll-behavior: smooth;
+}
+a {
+    text-decoration: none;
+}
+a.taskbarlink {
+    color: #FFF;
+    text-decoration: none;
+}
+a.taskbarlink:hover {
+    text-decoration: underline;
+}
+a.taskbarlink:active {
+    font: 14px bold;
+}
+details {
+    background-color: #88F;
+}
+details:hover {
+    background-color:blue;
+    color: white;
+}
+div.eventlog {
+    border: 2px black solid;
+    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    float: left;
+    padding: 10px;
+}
+div.login {
+    align-content: center;
+    align: center;
+    justify-content: center;
+    width: 15em
+}
+div.taskbar {
+    position: absolute;
+    left: 0;
+    /* From https://css.glass */
+    border-radius: 0px 16px 16px 0px;
+   background: rgba(0,0,4,0.05);
+   box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+}
+div.settings {
+    top: 0;
+    padding: 4px;
+}
+form.window {
+    border: 2px solid;
+}
+table {width:100%}
+th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: #BBB;
+}
+tr.service{
+    background-color: #88F
+}
+tr.service:hover {
+    background-color:blue;
+    color: white;
+}
+td {
+    border: 1px solid rgba(0,0,0,0);
+}
+td.navbar {
+    text-align: center;
+    padding:2px;
+}
+
+td.navbar:hover {
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.44);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.37);
+}
+td.service:hover {
+    background-color:#A0F;
+    color: white;
+}
+span.button {
+    border-radius: 4px;
+    border: 1px solid;
+    padding: 4px;
+}
+span.button:hover {
+    border-color: #D2F;
+    padding: 4px;
+}
+span.appbar {
+    font-size: 16px;
+}
+span.log {
+    background-color: #C0F;
+}

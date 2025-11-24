@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="/static/style.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>Computers | MLWT</title>
+<script>
+function openConnection() {
+    let f = document.getElementById("connectHost");
+    let h = document.getElementById("host");
+    let o = document.getElementById("os");
+    f.action = "./"
+    if(o.value == "win") {
+        f.action += "windows/"
+    }
+    f.action += h.value;
+    f.submit();
+}
+</script>
+</head>
+<body>
+<a href="."><img src="/static/logo.png" alt="MysticLink"></a>
+
+<form id="connectHost" action="">
+Hostname:<br>
+<input type="text" id="host" /><br>
+OS Profile<br>
+<select id="os">
+  <option value="win">Windows NT</option>
+  <option value="deb">Linux (Debian/Ubuntu)</option>
+  <option value="red">Linux (RedHat)</option>
+</select>
+</form>
+<button onclick="openConnection()">Connect</button>
+<hr>
+<table>
+<tr>
+<td>Hostname</td>
+<td>OS Family</td>
+</tr>
+{% for computer in computers %}
+<tr>
+<td><a href="{{ computer.osProfile }}/{{ computer.hostname }}">{{ computer.hostname }}</a></td>
+<td>{{ computer.osProfile }}</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>

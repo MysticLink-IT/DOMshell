@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="/static/style.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>Login {{host}}</title>
+</head>
+<body>
+
+<div class="login">
+<a href="."><img src="/static/logo.png" alt="MysticLink"></a>
+<div>
+<img src="/static/computer.png">{{host}}
+<form action='.' method='POST'>{% csrf_token %}
+<label for="domain">Domain:</label><br>
+<input type="text" id="domain" name="domain"/><br>
+<label for="uname">User:</label><br>
+<input type="text" id="uname" name="uname"/><br>
+<label for="pass">Password:</label><br>
+<input type="text" id="pass" name="pass"/><br>
+<input type="submit" value="Log In">
+</form>
+</div>
+</div>
+</body>
+</html>
